@@ -4,7 +4,7 @@ public class Palindrome {
 
     public Integer countPalindromes(String input){
         String[] arrayOfSubStrings = getArrayOfAllSubstrings(input);
-        int countOfPalindromes = 0;
+        int countOfPalindromes = input.length();
 
         for (String s : arrayOfSubStrings) {
             if (isPalindrome(s)) {
@@ -16,7 +16,7 @@ public class Palindrome {
     }
 
     private static String[] getArrayOfAllSubstrings(String input) {
-        int arraySize = (input.length() + 1) * input.length() / 2;
+        int arraySize = (input.length() + 1) * input.length() / 2 - input.length();
         // The number of distinct non-empty substrings in a string (including the full string) is equal to the sum of
         // all integers from 1 up to the number of characters in the string. Using Euler's method of summing numbers
         // from 1 to n, we can reduce this to a simple equation. (n + 1) * (n / 2)
@@ -26,7 +26,7 @@ public class Palindrome {
 
         // The following nested for loop iterates through every possible substring and assigns each one to the arrayOfSubstrings
         for (int startIndex = 0; startIndex < input.length(); startIndex++) {
-            for (int endIndex = startIndex + 1; endIndex <= input.length(); endIndex++){
+            for (int endIndex = startIndex + 2; endIndex <= input.length(); endIndex++){
                 arrayOfSubstrings[index] = input.substring(startIndex, endIndex);
                 index++;
             }
@@ -42,15 +42,18 @@ public class Palindrome {
      * @return true if the input String is a palindrome, false otherwise
      */
     private static boolean isPalindrome(String input) {
-        boolean result = false;
+        if (input.length() < 3) {
+            if (input.charAt(0) == input.charAt(1)) {
+                return true;
+            }
+        } else {
+            StringBuilder reverser = new StringBuilder(input);
+            String reversedString = reverser.reverse().toString();
 
-        StringBuilder reverser = new StringBuilder(input);
-        String reversedString = reverser.reverse().toString();
-
-        if (input.equals(reversedString)) {
-            result = true;
+            if (input.equals(reversedString)) {
+                return true;
+            }
         }
-
-        return result;
+        return false;
     }
 }
