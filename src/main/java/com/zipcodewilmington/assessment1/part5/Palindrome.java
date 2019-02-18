@@ -42,18 +42,14 @@ public class Palindrome {
      * @return true if the input String is a palindrome, false otherwise
      */
     private static boolean isPalindrome(String input) {
-        if (input.length() < 3) {
-            if (input.charAt(0) == input.charAt(1)) {
-                return true;
-            }
-        } else {
+
             StringBuilder reverser = new StringBuilder(input);
             String reversedString = reverser.reverse().toString();
 
             if (input.equals(reversedString)) {
                 return true;
             }
-        }
+
         return false;
     }
 }
